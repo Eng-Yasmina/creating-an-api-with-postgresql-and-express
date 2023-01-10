@@ -11,7 +11,7 @@ describe('Product Model', () => {
         expect(product.create).toBeDefined();
     });
     it('create method should return the created product', async () => {
-        const result = await product.create('jacket', 155);
+        const result = await product.create({name:"jacket", price: 155});
         expect(result).toEqual({id:9, name: 'jacket', price: 155});
     });
 

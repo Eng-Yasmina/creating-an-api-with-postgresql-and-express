@@ -12,19 +12,19 @@ export type Product = {
 export class ProductModel {
     //create a new product
     // the method needs to be asynchronous because all calls to the database will be promises
-    async create(name: Product["name"], price: Product["price"]): Promise<Product> {
+    async create(p: Product): Promise<Product> {
         try {
             //open connection with database
             const connection = await client.connect();
             const sql = 'INSERT INTO products (name, price) VALUES($1, $2) RETURNING *'
             //run query
-            const result = await connection.query(sql, [name, price]);
+            const result = await connection.query(sql, [p.name, p.price]);
             //release connection
             connection.release();
             //return created product
             return result.rows[0]
         } catch (error) {
-            throw new Error(`Sorry unable to create a new product ${name}.Error: ${error}`);
+            throw new Error(`Sorry unable to create a new product ${p.name}.Error: ${error}`);
             
         }
     }
@@ -45,7 +45,7 @@ export class ProductModel {
             
         }
     }
-    //get a specific product
+    //get specific product
     async getProduct(id: Number): Promise<Product> {
         try {
             //open connection with database

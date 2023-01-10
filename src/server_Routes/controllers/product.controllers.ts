@@ -7,7 +7,7 @@ const productModel = new ProductModel();
 //create a product
 export const create = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const product = await productModel.create(req.params.name as unknown as string, req.params.price as unknown as Number);
+        const product = await productModel.create(req.body);
         res.json({
             data: {...product},
             message: 'done.. product created',
