@@ -6,9 +6,8 @@ import helmet from 'helmet';
 // Body-parser to handle the post request
 import bodyParser from 'body-parser';
 // configure Environment Variables
-import config from './config/config';
-import db from './database';
-import client from './database';
+import config from './env_variables_config/config';
+import routes from './server_Routes/routes';
 
 
 /* Strartup an instance of the app */
@@ -31,6 +30,7 @@ const listeningMsg = () => {
 const server = app.listen(port, listeningMsg);
 
 /* Routes */
+app.use('/api', routes)
 // Get Route to respond to the browser's request
 const sendData = (req: Request, res: Response) => {
     res.send('Hello From The Other Side.. I Must Have Called A Thousand Times 🎵')
