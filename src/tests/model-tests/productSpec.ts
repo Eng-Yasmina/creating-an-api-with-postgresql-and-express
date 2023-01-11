@@ -1,5 +1,5 @@
 //import the type and class from product model
-import { Product, ProductModel } from "../../database/CRUD/models/product.row.model";
+import { Product, ProductModel } from "../../endpoint/models/product.row.model";
 
 //instance from the ProductModel class
 const product = new ProductModel;
@@ -11,7 +11,7 @@ describe('Product Model', () => {
         expect(product.create).toBeDefined();
     });
     it('create method should return the created product', async () => {
-        const result = await product.create({name:"jacket", price: 155});
+        const result = await product.create({name:'jacket', price: 155});
         expect(result).toEqual({id:9, name: 'jacket', price: 155});
     });
 

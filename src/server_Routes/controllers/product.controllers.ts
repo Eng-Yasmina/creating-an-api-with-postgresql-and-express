@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ProductModel } from "../../database/CRUD/models/product.row.model";
+import { ProductModel } from "../../endpoint/models/product.row.model";
 
 //instance from the ProductModel class
 const productModel = new ProductModel();

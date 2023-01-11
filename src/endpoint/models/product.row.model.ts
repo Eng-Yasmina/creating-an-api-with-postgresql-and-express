@@ -1,4 +1,4 @@
-import client from "../../database_connect";
+import client from "../database_connect";
 
 /* CRUD actions for the Prodect table */
 //define the Typescript type for user table
@@ -12,7 +12,7 @@ export type Product = {
 export class ProductModel {
     //create a new product
     // the method needs to be asynchronous because all calls to the database will be promises
-    async create(p: Product): Promise<Product> {
+    async create(p:Product): Promise<Product> {
         try {
             //open connection with database
             const connection = await client.connect();
