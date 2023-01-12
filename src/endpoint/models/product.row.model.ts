@@ -37,7 +37,7 @@ export class ProductModel {
             //run query
             const result = await connection.query(sql);
             //release connection
-            await connection.release();
+            connection.release();
             //return all products
             return result.rows
         } catch (error) {
@@ -54,7 +54,7 @@ export class ProductModel {
             //run query
             const result = await connection.query(sql, [id]);
             //release connection
-            await connection.release();
+            connection.release();
             return result.rows[0]
         } catch (error) {
             throw new Error(`Sorry unable to  product ${id}.Error: ${error}`);
@@ -70,7 +70,7 @@ export class ProductModel {
             //run query
             const result = await connection.query(sql, [id]);
             //release connection
-            await connection.release();
+            connection.release();
             return result.rows[0];
         } catch (error) {
             throw new Error(`Sorry unable to delete product ${id}.Error: ${error}`);

@@ -12,6 +12,6 @@ usersRoutes.get('/', controllers.getAllUsers);
 //to show a sepecific user, you should provide it's token at first
 usersRoutes.get('/:id', controllers.getUser);
 //to delete a sepecific user, you should provide it's token at first
-usersRoutes.delete('/:id', controllers.verifyAuthToken, controllers.deleteUser);
+usersRoutes.delete('/:id', controllers.deleteUser);
 
 export default usersRoutes;
