@@ -11,6 +11,8 @@ ordersRoutes.post('/', controllers.create);
 ordersRoutes.post('/:id/products', controllers.addProduct);
 //Get the current order by the user
 ordersRoutes.get('/current', controllers.getCurrentOrderByUser);
+//Get completed orders by the user
+ordersRoutes.get('/active', controllers.completedOrdersByUser);
 
 
 export default ordersRoutes;

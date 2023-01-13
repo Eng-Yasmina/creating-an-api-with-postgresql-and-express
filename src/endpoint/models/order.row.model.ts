@@ -5,7 +5,7 @@ import client from "../database_connect";
 export type Order = {
     id: Number;
     userId: Number;
-    status: Number;
+    status: string;
 };
 
 //define the Typescript type for order_products table
@@ -47,7 +47,7 @@ export class OrderModel {
             const order = result.rows[0];
 
             //status is a switch (1 means active)
-            if (order.status !== "1") {
+            if (order.status !== "active") {
                 throw new Error(`Sorry unable to add product ${productId} to order ${orderId} because order is closed`);
             }
     
@@ -70,24 +70,51 @@ export class OrderModel {
       }
 
     //get current order by user
-    async getCurrentOrderByUser(userId: Number): Promise<Order[]> {
+    async getCurrentOrderByUser(userId: Number): Promise<Order[] | null> {
         try {
-            const sql = 'SELECT * FROM orders WHERE user_id=$1 ORDER BY id DESC';
+            const sql = 'SELECT * FROM orders WHERE user_id=$1';
             const connection = await client.connect();
     
             const result = await connection.query(sql, [userId]);
+            if (result.rows.length) {
+                const status = "active";
+                const sql = `SELECT * FROM orders WHERE status=$1 ORDER BY id DESC`;
     
-            const currentOrderId = result.rows[0].id;
-            const ordersql = `SELECT * FROM order_products WHERE order_id=${currentOrderId}`;
-
-            const result2 = await connection.query(ordersql);
+                const result2 = await connection.query(sql, [status]);
+    
+                const currentOrderId = result2.rows[0].id;
+                const ordersql = `SELECT * FROM order_products WHERE order_id=${currentOrderId}`;
+                 //return products of the current active order by the user
+                const result3 = await connection.query(ordersql);
+                return result3.rows;
+            }
             connection.release();
-            //return products of the current order by user
-            return result2.rows;
+            return null;
         } catch (err) {
             throw new Error(`${err}`);
         }
     }
+
+    //get completed order by user
+    async completedOrdersByUser(userId: Number): Promise<Order[] | null> {
+        try {
+            const sql = `SELECT * FROM orders WHERE user_id=$1`;
+            const connection = await client.connect();
     
+            const result = await connection.query(sql, [userId]);
+            if (result.rows.length) {
+                const status = "complete";
+                const sql = `SELECT * FROM orders WHERE status=$1`;
+    
+                const result2 = await connection.query(sql, [status]);
+                //return the completed orders by the user .. guess what! i did it.. thank you udacity.. now i became an e-commerce's api expert ;)
+                return result2.rows;
+            }
+            connection.release();
+            return null;
+        } catch (err) {
+            throw new Error(`${err}`);
+        }
+    }    
     
 }

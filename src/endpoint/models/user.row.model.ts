@@ -13,7 +13,7 @@ export type User = {
 
 //This class is going to be the representation of the database (postgres ambassador in js)
 export class UserModel {
-    //create a new user
+    //create a new user(register)
     // the method needs to be asynchronous because all calls to the database will be promises
     async create(u: User): Promise<User> {
         try {

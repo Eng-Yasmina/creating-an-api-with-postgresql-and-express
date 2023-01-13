@@ -10,20 +10,20 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
         const order = await orderModel.create(req.body);
         res.json({
             data: {order},
-            message: 'done.. order created',
+            message: 'Done.. order created',
         });
     } catch (error) {
         next(error);
     }
 };
 
-//Add orders to a spesific product add or add products to a spesific order
+//Add orders to a spesific product or add products to a spesific order by the user
 export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const addProduct = await orderModel.addProduct(parseInt(req.body.quantity), parseInt(req.body.orderId), parseInt(req.body.productId));
         res.json({
             data: {addProduct},
-            message: 'done.. added a new order to this product',
+            message: 'Done.. added a new order to this product.. happy shopping:)',
         });
     } catch (error) {
         next(error);
@@ -36,7 +36,19 @@ export const getCurrentOrderByUser = async (req: Request, res: Response, next: N
         const currentOrder = await orderModel.getCurrentOrderByUser(req.body.userId as unknown as Number);
         res.json({
             data: currentOrder,
-            message: 'done.. products of the current order by the user retrieved.. happy shopping:)',
+            message: 'Done.. products of the current order by the user retrieved.. happy shopping:)',
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+//Get completed orders by the user
+export const completedOrdersByUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const currentOrder = await orderModel.completedOrdersByUser(req.body.userId as unknown as Number);
+        res.json({
+            data: currentOrder,
+            message: 'Done.. completed orders by the user retrieved',
         });
     } catch (error) {
         next(error);
