@@ -3,13 +3,14 @@ import client from "../database_connect";
 /* CRUD actions for the Prodect table */
 //define the Typescript type for order table
 export type Order = {
-    id: Number;
+    id: number;
     userId: number;
     status: string;
 };
 
 //define the Typescript type for order_products table
 export type OrderProducts = {
+    id: number;
     quantity: number;
     orderId: number;
     productId: number;
@@ -70,7 +71,7 @@ export class OrderModel {
       }
 
     //get current order by user
-    async getCurrentOrderByUser(userId: Number): Promise<Order[] | null> {
+    async getCurrentOrderByUser(userId: Number): Promise<OrderProducts[] | null> {
         try {
             const sql = 'SELECT * FROM orders WHERE user_id=$1';
             const connection = await client.connect();

@@ -51,4 +51,13 @@ describe('Order Model', () => {
         );
         expect(result?.quantity).toBe(1);
     });
+
+    //Test get current order by user method
+    it('should have a getCurrentOrderByUser) method', () => {
+        expect(order.getCurrentOrderByUser).toBeDefined();
+    });
+    it('get getCurrentOrderByUser method should return a list of all products of the current order', async () => {
+        const result = await order.getCurrentOrderByUser(1);
+        expect(result?.length).toEqual(1);
+    });
 });
