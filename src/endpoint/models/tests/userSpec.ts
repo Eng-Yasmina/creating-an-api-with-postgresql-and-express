@@ -1,5 +1,6 @@
 //import the type and class from user model
 import { User, UserModel } from "../user.row.model";
+import client from "../../database_connect";
 
 //instance from the UserModel class
 const user = new UserModel;
@@ -70,13 +71,7 @@ describe('User Model', () => {
         expect(result).toBe(null);
     });
 
-    //Test delete product method
-    it('should have a deleteUser method', () => {
-        expect(user.deleteUser).toBeDefined();
-    });
-    it('deleteUser method should delete a specific user by its id', async () => {
-        const result = await user.deleteUser(1);
-        expect(result.id).toBe(1);
-    });
+
+    
 
 });

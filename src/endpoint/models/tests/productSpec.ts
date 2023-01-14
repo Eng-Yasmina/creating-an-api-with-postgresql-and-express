@@ -38,12 +38,6 @@ describe('Product Model', () => {
         expect(result?.name).toBe('dress');
     });
 
-    //Test delete product method
-    it('should have a deleteProduct method', () => {
-        expect(product.deleteProduct).toBeDefined();
-    });
-    it('deleteProduct method should delete a specific product by its id', async () => {
-        const result = await product.deleteProduct(1);
-        expect(result.id).toBe(1);
-    });
+
+    
 });

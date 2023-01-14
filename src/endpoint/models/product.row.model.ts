@@ -5,7 +5,7 @@ import client from "../database_connect";
 export type Product = {
     id: Number;
     name: string;
-    price: Number;
+    price: number;
 }
 
 //This class is going to be the representation of the database (postgres ambassador in js)

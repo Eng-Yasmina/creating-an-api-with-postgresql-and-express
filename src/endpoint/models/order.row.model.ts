@@ -4,15 +4,15 @@ import client from "../database_connect";
 //define the Typescript type for order table
 export type Order = {
     id: Number;
-    userId: Number;
+    userId: number;
     status: string;
 };
 
 //define the Typescript type for order_products table
 export type OrderProducts = {
-    quantity: Number;
-    orderId: Number;
-    productId: Number;
+    quantity: number;
+    orderId: number;
+    productId: number;
 };
 
 export class OrderModel {
