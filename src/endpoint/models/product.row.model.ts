@@ -66,7 +66,7 @@ export class ProductModel {
         try {
             //open connection with database
             const connection = await client.connect();
-            const sql = `DELETE FROM products WHERE id= $1`;
+            const sql = `DELETE FROM products WHERE id= $1 RETURNING id`;
             //run query
             const result = await connection.query(sql, [id]);
             //release connection

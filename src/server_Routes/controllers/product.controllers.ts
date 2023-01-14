@@ -9,7 +9,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
     try {
         const product = await productModel.create(req.body);
         res.json({
-            data: {...product},
+            data: product,
             message: 'done.. product created',
         });
     } catch (error) {
