@@ -1,5 +1,5 @@
 import supertest from "supertest";
-import { Order, OrderProducts } from "../../../endpoint/models/order.row.model";
+import { Order } from "../../../endpoint/models/order.row.model";
 import app from "../../..";
 import { utoken } from "./userSpec";
 
