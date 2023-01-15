@@ -2,7 +2,7 @@ import { Order, OrderProducts, OrderModel } from "../order.row.model";
 import { User, UserModel } from "../user.row.model";
 import { Product, ProductModel } from "../product.row.model";
 
-//instance from the ProductModel class
+//instance from the OrderModel class, ProductModel class and UserModel
 const order = new OrderModel;
 const user = new UserModel;
 const product = new ProductModel;
@@ -22,7 +22,7 @@ describe('Order Model', () => {
         } as Product)
         
     })
-    //Test create a user method
+    //Test create an order method
     it('should have a create method', () => {
         expect(order.create).toBeDefined();
     });

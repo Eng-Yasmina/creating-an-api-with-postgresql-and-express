@@ -6,7 +6,7 @@ import client from "../../database_connect";
 const user = new UserModel;
 
 describe('User Model', () => {
-    //test user 
+    //user-example
     const u = {
         first_name: 'yasminatest',
         last_name: 'alitest',

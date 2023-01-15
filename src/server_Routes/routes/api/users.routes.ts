@@ -1,17 +1,21 @@
 import { Router } from "express";
 import * as controllers from "../../controllers/user.controllers"
+import { verifyAuthToken } from "../../../middleware/authToken"
 
 
 //invoke fn Router
 const usersRoutes = Router();
 
-//once you create a user, you should save his token in case you need it later
-usersRoutes.post('/', controllers.create);
+//Once you authenticate user, Store the token & use it for future HTTP requests
 usersRoutes.post('/login', controllers.authenticate);
-usersRoutes.get('/', controllers.getAllUsers);
-//to show a sepecific user, you should provide it's token at first
-usersRoutes.get('/:id', controllers.getUser);
-//to delete a sepecific user, you should provide it's token at first
-usersRoutes.delete('/:id', controllers.deleteUser);
+
+//to create a user, token required
+usersRoutes.post('/', verifyAuthToken, controllers.create);
+//to index all users, token required
+usersRoutes.get('/', verifyAuthToken, controllers.getAllUsers);
+//to show a sepecific user, token required
+usersRoutes.get('/:id', verifyAuthToken, controllers.getUser);
+//to delete a sepecific user, token required
+usersRoutes.delete('/:id', verifyAuthToken, controllers.deleteUser);
 
 export default usersRoutes;
