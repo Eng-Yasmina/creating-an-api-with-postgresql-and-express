@@ -1,7 +1,6 @@
-import { Router } from "express";
-import * as controllers from "../../controllers/user.controllers"
-import { verifyAuthToken } from "../../../middleware/authToken"
-
+import { Router } from 'express';
+import * as controllers from '../../controllers/user.controllers';
+import { verifyAuthToken } from '../../../middleware/authToken';
 
 //invoke fn Router
 const usersRoutes = Router();

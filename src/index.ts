@@ -1,5 +1,5 @@
 /* Express to run server and routes */
-import express, { Application, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import morgan from 'morgan';
 //Helmet to secure my express
 import helmet from 'helmet';
@@ -8,7 +8,6 @@ import bodyParser from 'body-parser';
 // configure Environment Variables
 import config from './env_variables_config/config';
 import routes from './server_Routes/routes';
-
 
 /* Strartup an instance of the app */
 const app: express.Application = express();
@@ -24,20 +23,19 @@ app.use(bodyParser.json());
 /* Setup server */
 const port = config.port || 1999;
 const listeningMsg = () => {
-    console.log(`server is running on localhost:${port}`)
+  console.log(`server is running on localhost:${port}`);
 };
 // Utilize the .listen() method
-const server = app.listen(port, listeningMsg);
+app.listen(port, listeningMsg);
 
 /* Routes */
-app.use('/api', routes)
+app.use('/api', routes);
 // Get Route to respond to the browser's request
 const sendData = (req: Request, res: Response) => {
-    res.send('Hello From The Other Side.. I Must Have Called A Thousand Times 🎵')
+  res.send(
+    'Hello From The Other Side.. I Must Have Called A Thousand Times 🎵'
+  );
 };
 app.get('/', sendData);
-
-
-
 
 export default app;

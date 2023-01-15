@@ -1,7 +1,6 @@
-import { Router } from "express";
-import * as controllers from "../../controllers/order.controllers"
-import { verifyAuthToken } from "../../../middleware/authToken";
-
+import { Router } from 'express';
+import * as controllers from '../../controllers/order.controllers';
+import { verifyAuthToken } from '../../../middleware/authToken';
 
 //invoke fn Router
 const ordersRoutes = Router();
@@ -13,7 +12,6 @@ ordersRoutes.post('/:id/products', controllers.addProduct);
 //Get the current order by the user, token required
 ordersRoutes.get('/current', verifyAuthToken, controllers.getCurrentOrderByUser);
 //Get completed orders by the user
-ordersRoutes.get('/active', controllers.completedOrdersByUser);
-
+ordersRoutes.get('/completed', controllers.completedOrdersByUser);
 
 export default ordersRoutes;
