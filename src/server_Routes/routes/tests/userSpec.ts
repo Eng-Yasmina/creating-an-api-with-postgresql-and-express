@@ -10,16 +10,19 @@ const usersRoutes = supertest(app);
 export let utoken = '' as string;
 
 describe('User Route', () => {
-  //User-example
-  const u = {
-    first_name: 'yasminatest3',
-    last_name: 'alitest3',
-    password: 'testo3',
-  } as User;
-  //Create the test-user in th database and set an id for it
-  beforeAll(async () => {
-    const result = await user.create(u);
-    u.id = result.id;
+  //Test create user method
+  it('shuold create a new user', async () => {
+    const result = await usersRoutes
+      .post('/api/users')
+      .set('Content-type', 'application/json')
+      .send({
+        first_name: 'yasminatest4' as string,
+        last_name: 'alitest4' as string,
+        password: 'testo4' as string,
+      } as User);
+
+    expect(result.status).toBe(200);
+    utoken = `${result.body.data}`;
   });
 
   //Authenticate user method
@@ -28,38 +31,23 @@ describe('User Route', () => {
       .post('/api/users/login')
       .set('Content-type', 'application/json')
       .send({
-        first_name: 'yasminatest3' as string,
-        password: 'testo3' as string,
+        first_name: 'yasminatest4' as string,
+        password: 'testo4' as string,
       } as User);
     expect(result.status).toBe(200);
-    expect(result.body.data.user.first_name).toBe(u.first_name);
-    utoken = `${result.body.data.token}`;
+    expect(result.body.data.user.first_name).toBe('yasminatest4');
+
   });
   it('shuold return error if entered password is wrong', async () => {
     const result = await usersRoutes
       .post('/api/users/login')
       .set('Content-type', 'application/json')
       .send({
-        first_name: 'yasminatest3',
+        first_name: 'yasminatest4',
         password: 'testofake',
       } as User);
     //expect error
     expect(result.status).toBe(401);
-  });
-  //Test create user method
-  it('shuold create a new user', async () => {
-    const result = await usersRoutes
-      .post('/api/users')
-      .set('Content-type', 'application/json')
-      .send({ token: `${utoken}` })
-      .send({
-        first_name: 'yasminatest4' as string,
-        last_name: 'alitest4' as string,
-        password: 'testo4' as string,
-      } as User);
-
-    expect(result.status).toBe(200);
-    expect(result.body.data.first_name).toBe('yasminatest4');
   });
 
   //Test select all users method
@@ -69,16 +57,16 @@ describe('User Route', () => {
       .set('Content-type', 'application/json')
       .send({ token: `${utoken}` });
     expect(result.status).toBe(200);
-    expect(result.body.data.length).toBe(5);
+    expect(result.body.data.length).toBe(4);
   });
 
   //Test select a specific user method
   it('shuold get a specific user', async () => {
     const result = await usersRoutes
-      .get(`/api/users/${u.id}`)
+      .get(`/api/users/4`)
       .set('Content-type', 'application/json')
       .send({ token: `${utoken}` });
     expect(result.status).toBe(200);
-    expect(result.body.data.first_name).toBe('yasminatest3');
+    expect(result.body.data.first_name).toBe('yasminatest4');
   });
 });

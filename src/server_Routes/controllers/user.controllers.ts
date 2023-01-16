@@ -14,8 +14,11 @@ export const create = async (
 ) => {
   try {
     const user = await userModel.create(req.body);
+    //token to be stored on the frontend and can be used for future authorizations with the API
+    const token = jwt.sign({ user }, `${config.tokenSecret}`);
+    //Pass back the token so that the client can store the token & use it for future HTTP requests
     res.json({
-      data: user,
+      data: token,
       message: 'done.. user created',
     });
   } catch (error) {
@@ -85,14 +88,12 @@ export const authenticate = async (
       req.body.first_name,
       req.body.password
     );
-    //token to be stored on the frontend and can be used for future authorizations with the API
     const token = jwt.sign({ user }, `${config.tokenSecret}`);
     if (!user) {
       res.status(401).json({
         message: 'wrong password..please try again',
       });
     }
-    //Pass back the token so that the client can store the token & use it for future HTTP requests
     return res.json({
       data: { user, token },
       message: 'login successfully',
